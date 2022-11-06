@@ -2,7 +2,8 @@ import logging
 from threading import Thread
 
 # define the global variable
-value = 0
+START_VALUE = 0
+value = START_VALUE
 # initialize logger
 logging.basicConfig(format='%(asctime)s.%(msecs)03d: %(message)s', level=logging.INFO, datefmt="%H:%M:%S")
 
@@ -23,17 +24,18 @@ def subtractor(amount, repeats):
 
 def start_threads():
     # start the adder thread
-    adder_thr = Thread(target=adder, args=(100, 1000000))
+    amount, repetition = 100, 1000000
+    adder_thr = Thread(target=adder, args=(amount, repetition))
     adder_thr.start()
     # start the subtractor thread
-    subtractor_thr = Thread(target=subtractor, args=(100, 1000000))
+    subtractor_thr = Thread(target=subtractor, args=(amount, repetition))
     subtractor_thr.start()
     return adder_thr, subtractor_thr
 
 
 def main():
     global value
-    logging.info(f'Expected final value: 0')
+    logging.info(f'Expected final value: {START_VALUE}')
     adder_thread, subtractor_thread = start_threads()
     # wait for both threads to finish
     logging.debug(f'Waiting for threads to finish...')
