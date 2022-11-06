@@ -1,25 +1,31 @@
 import logging
-from threading import Thread
+from threading import Thread, Lock
 
 # define the global variable
 START_VALUE = 0
 value = START_VALUE
+# define a lock for the threads
+lock = Lock()
 # initialize logger
 logging.basicConfig(format='%(asctime)s.%(msecs)03d: %(message)s', level=logging.INFO, datefmt="%H:%M:%S")
 
 
 # make additions into the global variable
 def adder(amount, repeats):
-    global value
+    global value, lock
     for _ in range(repeats):
+        lock.acquire()
         value += amount
+        lock.release()
 
 
 # make subtractions from the global variable
 def subtractor(amount, repeats):
-    global value
+    global value, lock
     for _ in range(repeats):
+        lock.acquire()
         value -= amount
+        lock.release()
 
 
 def start_threads():
