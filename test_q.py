@@ -7,7 +7,7 @@ value = START_VALUE
 # define a lock for the threads
 lock = Lock()
 # initialize logger
-logging.basicConfig(format='%(asctime)s.%(msecs)03d: %(message)s', level=logging.INFO, datefmt="%H:%M:%S")
+logging.basicConfig(format='%(asctime)s.%(msecs)03d: %(message)s', level=logging.DEBUG, datefmt="%H:%M:%S")
 
 
 # make additions into the global variable
